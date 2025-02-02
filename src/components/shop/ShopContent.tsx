@@ -77,9 +77,9 @@ export function ShopContent() {
   const categories = Array.from(new Set(foods.map((food) => food.category)))
 
   return (
-    <div className="container mt-32 mb-16 mx-auto px-4">
+    <div className="max-w-7xl mt-32 mb-16 mx-auto px-4">
       <div className="flex flex-col md:flex-row gap-8 min-h-[calc(100vh-200px)]">
-        <div className="md:w-[984px] w-full flex-grow">
+        <div className="md:w-[1030px] w-full flex-grow">
           <SortAndShowControls
             sortOrder={sortOrder}
             setSortOrder={setSortOrder}
