@@ -499,7 +499,6 @@ import { HiMenu } from "react-icons/hi";
 import { IoSearch } from "react-icons/io5";
 import { RxPerson } from "react-icons/rx";
 // import { PiHandbagBold } from "react-icons/pi";
-import { useCart } from "@/contexts/CartContext"
 import { client } from "@/sanity/lib/client";
 import CartIcon from "./CartIcon"
 import {
