@@ -88,7 +88,7 @@ export function ShopContent() {
           />
           <ProductGrid products={isLoading ? Array(12).fill({}) : filteredProducts} />
         </div>
-        <div className="w-full md:w-[312px] md:flex-shrink-0">
+        <div className="w-full md:w-[250px] md:flex-shrink-0">
           <div className="md:sticky md:top-4 space-y-6">
             <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
             <CategoryFilters
