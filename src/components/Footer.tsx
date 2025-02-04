@@ -7,7 +7,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube, FaPinterest } from "rea
 
 const Footer = () => {
   return (
-    <footer className='max-w-[1320px] mx-auto bg-black text-white'>
+    <footer className='w-full mx-auto bg-black text-white'>
       {/* Top Section */}
       <div className="wrapper flex flex-col md:flex-row justify-between items-center bg-black  py-8 md:py-[50px]">
         <div className="md:w-1/2 w-full">
@@ -99,7 +99,7 @@ const Footer = () => {
       </div>
 
       {/* Footer Bottom Section */}
-      <div className='bg-[#4F4F4F] max-w-[1320px]'>
+      <div className='bg-[#4F4F4F] w-full'>
       <div className="wrapper py-6 px-4 md:flex  md:justify-between md:items-center text-center md:text-left">
         <span className="text-sm text-gray-300">
         Copyright © 2022 Ayeman. All Rights Reserved.
