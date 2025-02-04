@@ -19,9 +19,9 @@ function HomeAbout() {
         <>
             <section className="max-w-[1320px] mx-auto bg-black md:px-[135px] flex flex-col justify-evenly md:gap-2 md:flex-row  md:items-center sm:py-8 md:py-10 lg:py-12">
                 {/* Heading */}
-                <div className="text-white w-full md:w-[50%] mr-2">
+                <div className="text-white w-full md:w-[50%] mr-2 p-5 md:p-0">
                     <div className='py-12'>
-                    <h1 className={`${greatVibes.className} md:text-[32px] text-[24px] font-normal text-[#FF9F0D] font whitespace-nowrap font-greatVibes`}>
+                    <h1 className={`${greatVibes.className} md:text-[32px] text-[24px] font-normal text-[#FF9F0D] font whitespace-nowrap`}>
                         About us
                     </h1>
 
@@ -69,8 +69,8 @@ function HomeAbout() {
                 <div className="mt-8 md:mt-0">
                     <Image src={foodpic1} alt="Hero Image w-full" width={660} height={330}  className="md:p-6" />
                     <div className="flex flex-col md:flex-row mt-[16px] md:mt-[0] md:px-6">
-                        <Image src={foodpic2} alt="Hero Image" className="mr-[16px]" />
-                        <Image src={foodpic3} alt="Hero Image"/>
+                        <Image src={foodpic2} alt="Hero Image" className="mr-[16px] w-full md:w-[250px] " />
+                        <Image src={foodpic3} width={250} height={250} alt="Hero Image" className='w-full md:w-[250px]'/>
                     </div>
                 </div>
             </section>

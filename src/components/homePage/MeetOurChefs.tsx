@@ -18,7 +18,7 @@ const MeetOurChef = () => {
 <h2 className="text-[28px] md:text-[36px] lg:text-[48px] font-bold text-[#FFFFFF]"><span className='text-[#FF9F0D]'>Me</span>et Our Chef</h2>
     </div>
 
-    <div className="w-full grid grid-cols-1 sm:grid-cols-2 px-16 md:px-28 gap-6 lg:grid-cols-4 lg:gap-2 items-center justify-center">
+    <div className="w-full grid grid-cols-1 sm:grid-cols-2 px-0 md:px-28 gap-6 lg:grid-cols-4 lg:gap-2 items-center justify-center">
       <div className="flex items-center justify-center">
         <Image
           src="/chef1.png"
