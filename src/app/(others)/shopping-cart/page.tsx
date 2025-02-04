@@ -599,7 +599,7 @@ export default function ShoppingCart() {
                     placeholder="Enter coupon code"
                     className="flex-1"
                   />
-                  <Button onClick={handleApplyCoupon} className="bg-orange-500 hover:bg-orange-600">
+                  <Button onClick={handleApplyCoupon} className="bg-orange-400 hover:bg-orange-500 active:bg-orange-900">
                     Apply
                   </Button>
                 </div>
@@ -628,7 +628,7 @@ export default function ShoppingCart() {
                     <span>Total</span>
                     <span>${totalAmount.toFixed(2)}</span>
                   </div>
-                  <Button onClick={handleProceedToCheckout} className="w-full bg-orange-500 hover:bg-orange-600 mt-6">
+                  <Button onClick={handleProceedToCheckout} className="w-full bg-orange-400 hover:bg-orange-500 active:bg-orange-900 mt-6">
                     Proceed to Checkout
                   </Button>
                 </div>
