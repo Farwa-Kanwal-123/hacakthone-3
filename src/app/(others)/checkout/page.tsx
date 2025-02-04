@@ -537,7 +537,6 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -550,7 +549,6 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 
 export default function CheckoutPage() {
   const { cartItems } = useCart()
-  const router = useRouter()
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

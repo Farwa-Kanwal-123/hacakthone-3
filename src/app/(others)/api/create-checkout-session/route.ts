@@ -51,7 +51,26 @@ export async function POST(req: Request) {
     try {
       const { items, email } = await req.json()
 
-      const transformedItems = items.map((item: any) => ({
+      interface Item {
+        name: string;
+        image: string;
+        price: number;
+        quantity: number;
+      }
+
+      interface TransformedItem {
+        price_data: {
+          currency: string;
+          product_data: {
+            name: string;
+            images: string[];
+          };
+          unit_amount: number;
+        };
+        quantity: number;
+      }
+
+      const transformedItems: TransformedItem[] = items.map((item: Item) => ({
         price_data: {
           currency: "usd",
           product_data: {
@@ -61,7 +80,7 @@ export async function POST(req: Request) {
           unit_amount: item.price * 100,
         },
         quantity: item.quantity,
-      }))
+      }));
 
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
@@ -75,9 +94,13 @@ export async function POST(req: Request) {
       })
 
       return NextResponse.json({ sessionId: session.id })
-    } catch (err: any) {
+    } catch (err) {
       console.error("Error in create-checkout-session: ", err)
-      return NextResponse.json({ error: { message: err.message } }, { status: 500 })
+      if (err instanceof Error) {
+        return NextResponse.json({ error: { message: err.message } }, { status: 500 })
+      } else {
+        return NextResponse.json({ error: { message: "An unknown error occurred" } }, { status: 500 })
+      }
     }
   } else {
     return NextResponse.json({ error: { message: "Method not allowed" } }, { status: 405 })
