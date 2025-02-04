@@ -97,7 +97,7 @@ const HomeHeader = () => {
 
         {/* search bar functionality code according to schema*/}
           <SearchBar/>
-          <div className="-translate-x-24">
+          <div className="-translate-x-24 hidden md:block">
           <CartIcon/>
           </div>
       </div>
