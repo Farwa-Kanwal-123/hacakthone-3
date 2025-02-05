@@ -333,6 +333,98 @@
 
 
 
+// 'use client'
+// import type React from "react"
+// import { createContext, useState, useContext, type ReactNode, useEffect } from "react"
+
+// export interface CartItem {
+//   id: string
+//   name: string
+//   price: number
+//   quantity: number
+//   image: string
+// }
+
+// interface CartContextType {
+//   cartItems: CartItem[]
+//   addToCart: (item: CartItem) => void
+//   updateQuantity: (id: string, quantity: number) => void
+//   removeFromCart: (id: string) => void
+//   cartCount: number
+// }
+
+// const CartContext = createContext<CartContextType | undefined>(undefined)
+
+// export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+//   const [cartItems, setCartItems] = useState<CartItem[]>([])
+//   const [cartCount, setCartCount] = useState(0)
+//   const [isInitialized, setIsInitialized] = useState(false)
+
+//   useEffect(() => {
+//     const storedCart = localStorage.getItem("cart")
+//     if (storedCart) {
+//       const parsedCart = JSON.parse(storedCart)
+//       setCartItems(parsedCart)
+//       setCartCount(parsedCart.reduce((total: number, item: CartItem) => total + item.quantity, 0))
+//       console.log("Cart loaded from localStorage:", parsedCart)
+//     }
+//     setIsInitialized(true)
+//   }, [])
+
+//   useEffect(() => {
+//     if (isInitialized) {
+//       localStorage.setItem("cart", JSON.stringify(cartItems))
+//       setCartCount(cartItems.reduce((total, item) => total + item.quantity, 0))
+//       console.log("Cart saved to localStorage:", cartItems)
+//     }
+//   }, [cartItems, isInitialized])
+
+//   const addToCart = (item: CartItem) => {
+//     setCartItems((prevItems) => {
+//       const existingItem = prevItems.find((i) => i.id === item.id)
+//       if (existingItem) {
+//         return prevItems.map((i) => (i.id === item.id ? { ...i, quantity: i.quantity + item.quantity } : i))
+//       }
+//       return [...prevItems, item]
+//     })
+//   }
+
+//   const updateQuantity = (id: string, quantity: number) => {
+//     setCartItems((prevItems) => prevItems.map((item) => (item.id === id ? { ...item, quantity: quantity } : item)))
+//   }
+
+//   const removeFromCart = (id: string) => {
+//     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id))
+//   }
+
+//   return (
+//     <CartContext.Provider value={{ cartItems, addToCart, updateQuantity, removeFromCart, cartCount }}>
+//       {children}
+//     </CartContext.Provider>
+//   )
+// }
+
+// export const useCart = () => {
+//   const context = useContext(CartContext)
+//   if (context === undefined) {
+//     throw new Error("useCart must be used within a CartProvider")
+//   }
+//   return context
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 'use client'
 import type React from "react"
 import { createContext, useState, useContext, type ReactNode, useEffect } from "react"
@@ -350,6 +442,7 @@ interface CartContextType {
   addToCart: (item: CartItem) => void
   updateQuantity: (id: string, quantity: number) => void
   removeFromCart: (id: string) => void
+  clearCart: () => void  // ✅ Clear cart function add kiya
   cartCount: number
 }
 
@@ -397,8 +490,14 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== id))
   }
 
+  const clearCart = () => {
+    setCartItems([])  // ✅ Cart ko empty kar raha hai
+    localStorage.removeItem("cart")  // ✅ localStorage se bhi clear karo
+    setCartCount(0)  // ✅ Cart count reset karo
+  }
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, updateQuantity, removeFromCart, cartCount }}>
+    <CartContext.Provider value={{ cartItems, addToCart, updateQuantity, removeFromCart, clearCart, cartCount }}>
       {children}
     </CartContext.Provider>
   )
@@ -411,4 +510,3 @@ export const useCart = () => {
   }
   return context
 }
-
