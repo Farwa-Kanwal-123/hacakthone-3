@@ -131,40 +131,37 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"use client";
+  "use client";
 import { useEffect, useState } from "react";
 import { useCart } from "@/contexts/CartContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Hero from "@/components/OthersHero";
 
 export default function SuccessPage() {
-  const { cartItems, clearCart } = useCart();
-  const [totalAmount, setTotalAmount] = useState(0);
+  const { clearCart } = useCart();
+  const [totalAmount, setTotalAmount] = useState<number | null>(null);
   const [trackingId, setTrackingId] = useState<string | null>(null);
-  const router = useRouter();
+  const searchParams = useSearchParams();
+  const sessionId = searchParams.get("session_id"); // Getting session_id from URL
 
   useEffect(() => {
-    const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    setTotalAmount(total);
-    clearCart();
-  }, []);
+    const fetchPaymentDetails = async () => {
+      if (!sessionId) return;
+      try {
+        const res = await fetch(`/api/stripe-session?session_id=${sessionId}`);
+        const data = await res.json();
+        setTotalAmount(data.amount_total / 100); // Stripe amount is in cents
+        clearCart(); // Clear cart after payment confirmation
+      } catch (error) {
+        console.error("Error fetching payment details:", error);
+      }
+    };
+
+    fetchPaymentDetails();
+  }, [sessionId]);
 
   const generateTrackingId = () => {
     const id = "TRK" + Math.floor(Math.random() * 1000000);
@@ -187,18 +184,9 @@ export default function SuccessPage() {
           {/* Order Summary */}
           <div className="bg-gray-50 p-4 rounded-lg shadow-inner">
             <h3 className="text-xl font-semibold text-gray-800 mb-3">🛍️ Order Summary</h3>
-            <ul className="space-y-3 text-left">
-              {cartItems.map((item) => (
-                <li key={item.id} className="flex justify-between items-center border-b pb-2">
-                  <div className="flex items-center space-x-4">
-                    <img src={item.image} alt={item.name} className="w-12 h-12 rounded-md" />
-                    <span>{item.name} (x{item.quantity})</span>
-                  </div>
-                  <span className="font-medium">${item.price * item.quantity}</span>
-                </li>
-              ))}
-            </ul>
-            <h3 className="text-2xl font-bold text-gray-900 mt-4">Total Paid: ${totalAmount}</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mt-4">
+              Total Paid: {totalAmount !== null ? `$${totalAmount}` : "Fetching..."}
+            </h3>
           </div>
 
           {/* Generate Tracker Button */}
@@ -228,7 +216,3 @@ export default function SuccessPage() {
     </div>
   );
 }
-  
-  //^yahan tk code thek hy jis main sirf amount show nahi ho rahi..baki sb thek hy
-  //^-----------------------------------------------------------------------------
-  
