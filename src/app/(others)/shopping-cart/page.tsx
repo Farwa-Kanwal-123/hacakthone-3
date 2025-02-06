@@ -592,7 +592,7 @@ export default function ShoppingCart() {
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h2 className="text-lg font-semibold mb-4">Have a Coupon?</h2>
                  <p>Enter your Coupon Code for discount!</p>
-                 <p>Available coupon code is:"DISCOUNT10"</p>
+                 <p>Available coupon code is:&quot;DISCOUNT10&quot;</p>
                 <div className="flex space-x-2 mt-2">
                   <Input
                     type="text"
