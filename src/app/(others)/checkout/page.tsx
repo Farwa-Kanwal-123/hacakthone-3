@@ -533,7 +533,6 @@
 
 
 
-
 "use client"
 
 import { useState } from "react"
@@ -560,6 +559,7 @@ export default function CheckoutPage() {
     zipCode: "",
     country: "",
   })
+  const [loading, setLoading] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target
@@ -574,6 +574,8 @@ export default function CheckoutPage() {
       alert("Please fill in all required fields")
       return
     }
+
+    setLoading(true)  // Set loading state to true when the checkout process starts
 
     // Create a Stripe Checkout Session
     const response = await fetch("/api/create-checkout-session", {
@@ -600,6 +602,8 @@ export default function CheckoutPage() {
       console.error("Error creating Stripe Checkout session")
       alert("An error occurred. Please try again.")
     }
+
+    setLoading(false)  // Reset loading state after the process is complete
   }
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -693,8 +697,12 @@ export default function CheckoutPage() {
                   </select>
                 </div>
                 <div className="mt-6">
-                  <Button type="submit" className="w-full bg-orange-400 hover:bg-orange-500 active:bg-orange-900">
-                    Proceed to Payment
+                  <Button
+                    type="submit"
+                    className="w-full bg-orange-400 hover:bg-orange-500 active:bg-orange-900"
+                    disabled={loading} // Disable button when loading
+                  >
+                    {loading ? 'Loading...' : 'Proceed to Payment'}
                   </Button>
                 </div>
               </form>
@@ -744,5 +752,3 @@ export default function CheckoutPage() {
     </>
   )
 }
-
-
