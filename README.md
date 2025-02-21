@@ -51,4 +51,4 @@ We welcome contributions! Follow these steps:
 This project is licensed under the MIT License.
 
 ---
-Made with ❤️ by **Farwa Kanwal & Team** 🚀
+Made with ❤️ by **Farwa Kanwal** 🚀
